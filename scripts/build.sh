@@ -45,6 +45,9 @@ CC=gcc CXX=g++ FC=gfortran cmake -DCMAKE_INSTALL_PREFIX=$TAMM_INSTALL_PATH/tamm 
     -DLINALG_PREFIX=$BLASROOT  \
     -DCMAKE_BUILD_TYPE=Release ..  \
     -DMODULES=CC
+# CC=gcc CXX=g++ FC=gfortran cmake -DCMAKE_INSTALL_PREFIX=$TAMM_INSTALL_PATH/tamm \
+#     -DCMAKE_BUILD_TYPE=Release ..  \
+#     -DMODULES=CC
 set +x
 make -j4
 make install
@@ -63,14 +66,23 @@ cd exachem
 mkdir build || echo "okay"
 cd build
 set -x
+# CC=gcc CXX=g++ FC=gfortran cmake -DCMAKE_INSTALL_PREFIX=$TAMM_INSTALL_PATH/tamm \
+#     -DCMAKE_BUILD_TYPE=Release ..  \
+#     -DLINALG_VENDOR=IntelMKL \
+#     -DLINALG_PREFIX=$MKLROOT  \
+#     -DMODULES=CC
 CC=gcc CXX=g++ FC=gfortran cmake -DCMAKE_INSTALL_PREFIX=$TAMM_INSTALL_PATH/tamm \
     -DLINALG_VENDOR=OpenBLAS \
     -DLINALG_PREFIX=$BLASROOT  \
     -DCMAKE_BUILD_TYPE=Release ..  \
     -DMODULES=CC
+# CC=gcc CXX=g++ FC=gfortran cmake -DCMAKE_INSTALL_PREFIX=$TAMM_INSTALL_PATH/tamm \
+#     -DCMAKE_BUILD_TYPE=Release ..  \
+#     -DMODULES=CC
 set +x
 make -j4
 make install
+# Note: accoding to doc (https://exachem.readthedocs.io/en/latest/install.html#build-instructions-for-a-quick-start), the cmake configure line for TAMM and ExaChem should be exactly the same.
 
 cd "$PREV_PWD"
 
