@@ -1,0 +1,6 @@
+[submodule "TAMM"]
+	path = TAMM
+	url = https://github.com/NWChemEx/TAMM.git
+[submodule "exachem"]
+	path = exachem
+	url = https://github.com/ExaChem/exachem.git
