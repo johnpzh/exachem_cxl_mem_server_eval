@@ -6,7 +6,7 @@ mkdir -p "$OUTPUT_DIR"
 
 cd "$OUTPUT_DIR"
 
-:> output.no_cxl.log
+:> output.with_cxl.log
 
 repeat=1
 
