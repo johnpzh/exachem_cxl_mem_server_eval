@@ -30,7 +30,9 @@ repeat=1
 input_file="/home/exouser/pppp/project_exachem/exachem/inputs/ci/uracil.json"
 
 set -x
-time \
+{
+/usr/bin/time -f "%e" \
 mpirun -np 2 \
-    /home/exouser/local/install/tamm/bin/ExaChem "$input_file" 2>&1 | tee -a output.no_cxl.log
+    /home/exouser/local/install/tamm/bin/ExaChem "$input_file"
+} 2>&1 | tee -a output.no_cxl.log
 set +x
