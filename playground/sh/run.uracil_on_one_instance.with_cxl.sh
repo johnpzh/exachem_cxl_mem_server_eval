@@ -26,8 +26,8 @@ repeat=1
 # -x LD_PRELOAD=/home/exouser/pppp/OCEAN-private/build/libmpi_cxlmemsim_shim.so \
 # /home/exouser/pppp/tests/mpi_test/hello_mpi
 
-# input_file="/home/exouser/pppp/project_exachem/exachem/inputs/ozone.json"
-input_file="/home/exouser/pppp/project_exachem/exachem/inputs/ci/uracil.json"
+input_file="/home/exouser/pppp/project_exachem/exachem/inputs/ozone.json"
+# input_file="/home/exouser/pppp/project_exachem/exachem/inputs/ci/uracil.json"
 
 set -x
 {
