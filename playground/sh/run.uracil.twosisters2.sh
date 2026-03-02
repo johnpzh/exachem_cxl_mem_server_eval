@@ -1,4 +1,4 @@
-OUTPUT_DIR="output.both.$(date +%FT%T)"
+OUTPUT_DIR="output.both.2-ppn.$(date +%FT%T)"
 
 mkdir -p "$OUTPUT_DIR"
 
@@ -37,6 +37,7 @@ for i in $(seq 1 $repeat); do
     {
     /usr/bin/time -f "%e" \
     mpirun -np 2 --hostfile "${hostfile}" \
+		--mca io romio321 \
         "$HOME/local/install/tamm/bin/ExaChem" "$input_file"
     } 2>&1 | tee -a output.no_cxl.log
     tail -n 1 output.no_cxl.log >> output.no_cxl.realtime.log
@@ -52,6 +53,7 @@ for i in $(seq 1 $repeat); do
 	LD_PRELOAD="/home/peng599/pppp/cxlmemsim_project/Splash/build/libmpi_cxl_numa_shim.so" \
     /usr/bin/time -f "%e" \
     mpirun -np 2 --hostfile "${hostfile}" \
+		--mca io romio321 \
         "$HOME/local/install/tamm/bin/ExaChem" "$input_file"
     } 2>&1 | tee -a output.with_cxl.log
     tail -n 1 output.with_cxl.log >> output.with_cxl.realtime.log

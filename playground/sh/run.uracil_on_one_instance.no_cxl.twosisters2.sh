@@ -26,13 +26,14 @@ repeat=1
 # -x LD_PRELOAD=/home/exouser/pppp/OCEAN-private/build/libmpi_cxlmemsim_shim.so \
 # /home/exouser/pppp/tests/mpi_test/hello_mpi
 
-# input_file="/home/peng599/pppp/cxlmemsim_project/exachem_cxl_mem_server_eval/exachem/inputs/ozone.json"
-input_file="/home/peng599/pppp/cxlmemsim_project/exachem_cxl_mem_server_eval/exachem/inputs/ci/uracil2.json"
+input_file="/home/peng599/pppp/cxlmemsim_project/exachem_cxl_mem_server_eval/exachem/inputs/ozone.json"
+# input_file="/home/peng599/pppp/cxlmemsim_project/exachem_cxl_mem_server_eval/exachem/inputs/ci/uracil2.json"
 
 set -x
 {
 /usr/bin/time -f "%e" \
-mpirun -np 2 \
+mpirun -np 16 \
+	--mca io romio321 \
     "$HOME/local/install/tamm/bin/ExaChem" "$input_file"
 } 2>&1 | tee -a output.no_cxl.log
 set +x
