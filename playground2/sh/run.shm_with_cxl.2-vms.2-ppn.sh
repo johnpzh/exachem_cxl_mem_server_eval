@@ -1,12 +1,13 @@
 set -eu
 
-OUTPUT_DIR="output.shm_no_cxl.$(date +%FT%T)"
+OUTPUT_DIR="output.shm_with_cxl.2-vms.2-ppn.$(date +%FT%T)"
 
 mkdir -p "$OUTPUT_DIR"
 
 cd "$OUTPUT_DIR"
 
-:> output.no_cxl.log
+:> output.with_cxl.log
+:> output.with_cxl.realtime.log
 
 repeat=1
 
@@ -28,18 +29,25 @@ repeat=1
 
 # input_file="/root/data/ozone.json"
 # input_file="/root/data/uracil2.json"
-input_file="/root/data/uracil3.json"
+# input_file="/root/data/uracil3.json"
+# input_file="/root/data/uracil4.json"
+input_file="/root/data/uracil5.json"
 
 for i in $(seq 1 $repeat); do
 
     set -x
     {
     /usr/bin/time -f "%e" \
-    mpirun --allow-run-as-root -np 2 --oversubscribe \
+    mpirun --allow-run-as-root -np 4 --map-by ppr:2:node --oversubscribe --hostfile ../hostfile \
+        -x CXL_DAX_PATH=/dev/dax0.0 \
+	    -x LD_PRELOAD=/root/libmpi_cxl_shim.so \
         "/root/mnt/shared/install/tamm/bin/ExaChem" "$input_file"
-    } 2>&1 | tee -a output.no_cxl.log
+    } 2>&1 | tee -a output.with_cxl.log
+    tail -n 1 output.with_cxl.log >> output.with_cxl.realtime.log
     set +x
 
     rm -rf *_files
 
 done
+
+rm -rf /dev/shm/*
