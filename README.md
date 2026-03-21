@@ -12,6 +12,11 @@ Probablly need to install OpenBLAS first
 sudo apt install -y libopenblas-dev libgslcblas0 libgsl-dev liblapacke liblapacke-dev liblapack-dev
 ```
 
+If no MPI is installed, please install OpenMPI then
+```bash
+sudo apt install -y openmpi-bin libopenmpi-dev
+```
+
 Then, run the script to build `TAMM` and `ExaChem`
 ```bash
 bash scripts/build.sh
