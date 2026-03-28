@@ -51,3 +51,6 @@ for i in $(seq 1 $repeat); do
 done
 
 rm -rf /dev/shm/*
+
+# -x CXL_SHIM_TRACE=1 \
+# -x GLIBC_TUNABLES=glibc.cpu.hwcaps=-AVX512F,-AVX512DQ,-AVX512BW,-AVX512VL \

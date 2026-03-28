@@ -9,7 +9,7 @@ cd "$OUTPUT_DIR"
 :> output.no_cxl.log
 :> output.no_cxl.realtime.log
 
-repeat=1
+repeat=3
 
 # mpirun -np 4 --oversubscribe \
 # -x CXL_MEMSIM_HOST=127.0.0.1 \

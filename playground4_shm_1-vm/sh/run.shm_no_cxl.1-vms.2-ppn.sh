@@ -1,6 +1,6 @@
 set -eu
 
-OUTPUT_DIR="output.tcp_no_cxl.1-ins.2-ppn.$(date +%FT%T)"
+OUTPUT_DIR="output.shm_no_cxl.1-vms.2-ppn.$(date +%FT%T)"
 
 mkdir -p "$OUTPUT_DIR"
 

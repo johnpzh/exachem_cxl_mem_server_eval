@@ -39,7 +39,6 @@ for i in $(seq 1 $repeat); do
     {
     /usr/bin/time -f "%e" \
     mpirun --allow-run-as-root -np 4 --map-by ppr:2:node --oversubscribe --hostfile ../hostfile \
-        -x CXL_SHIM_TRACE=1 \
         -x CXL_DAX_PATH=/dev/dax0.0 \
 	    -x LD_PRELOAD=/root/libmpi_cxl_shim.so \
         "/root/mnt/shared/install/tamm/bin/ExaChem" "$input_file"
@@ -52,3 +51,5 @@ for i in $(seq 1 $repeat); do
 done
 
 rm -rf /dev/shm/*
+
+# -x CXL_SHIM_TRACE=1 \

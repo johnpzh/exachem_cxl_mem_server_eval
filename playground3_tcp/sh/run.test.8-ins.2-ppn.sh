@@ -1,15 +1,15 @@
 set -eu
 
-OUTPUT_DIR="output.tcp_no_cxl.1-ins.2-ppn.$(date +%FT%T)"
+# OUTPUT_DIR="output.tcp_no_cxl.8-ins.2-ppn.$(date +%FT%T)"
 
-mkdir -p "$OUTPUT_DIR"
+# mkdir -p "$OUTPUT_DIR"
 
-cd "$OUTPUT_DIR"
+# cd "$OUTPUT_DIR"
 
 :> output.no_cxl.log
 :> output.no_cxl.realtime.log
 
-repeat=3
+repeat=1
 
 # mpirun -np 4 --oversubscribe \
 # -x CXL_MEMSIM_HOST=127.0.0.1 \
@@ -38,10 +38,9 @@ for i in $(seq 1 $repeat); do
     set -x
     {
     /usr/bin/time -f "%e" \
-    mpirun --allow-run-as-root -np 2 --oversubscribe \
-        "/root/mnt/shared/install/tamm/bin/ExaChem" "$input_file"
-    } 2>&1 | tee -a output.no_cxl.log
-    tail -n 1 output.no_cxl.log >> output.no_cxl.realtime.log
+    mpirun --allow-run-as-root -np 16 --map-by ppr:2:node --oversubscribe --hostfile hostfile \
+        hostname
+    }
     set +x
 
     rm -rf *_files

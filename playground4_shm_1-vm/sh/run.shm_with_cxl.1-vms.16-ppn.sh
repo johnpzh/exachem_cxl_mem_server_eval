@@ -1,13 +1,13 @@
 set -eu
 
-OUTPUT_DIR="output.tcp_no_cxl.1-ins.2-ppn.$(date +%FT%T)"
+OUTPUT_DIR="output.shm_with_cxl.1-vms.16-ppn.$(date +%FT%T)"
 
 mkdir -p "$OUTPUT_DIR"
 
 cd "$OUTPUT_DIR"
 
-:> output.no_cxl.log
-:> output.no_cxl.realtime.log
+:> output.with_cxl.log
+:> output.with_cxl.realtime.log
 
 repeat=3
 
@@ -38,10 +38,12 @@ for i in $(seq 1 $repeat); do
     set -x
     {
     /usr/bin/time -f "%e" \
-    mpirun --allow-run-as-root -np 2 --oversubscribe \
+    mpirun --allow-run-as-root -np 16 --oversubscribe \
+        -x CXL_DAX_PATH=/dev/dax0.0 \
+	    -x LD_PRELOAD=/root/libmpi_cxl_shim.so \
         "/root/mnt/shared/install/tamm/bin/ExaChem" "$input_file"
-    } 2>&1 | tee -a output.no_cxl.log
-    tail -n 1 output.no_cxl.log >> output.no_cxl.realtime.log
+    } 2>&1 | tee -a output.with_cxl.log
+    tail -n 1 output.with_cxl.log >> output.with_cxl.realtime.log
     set +x
 
     rm -rf *_files
